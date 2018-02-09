@@ -19,6 +19,7 @@ RSpec.describe GDS::Metrics::Config do
 
       expect(subject.application_id).to be_nil
       expect(subject.prometheus_metrics_path).to eq("/metrics")
+      expect(subject.mmap_directory).to eq("/tmp")
       expect(subject.auth_enabled?).to eq(false)
     end
 
@@ -38,6 +39,13 @@ RSpec.describe GDS::Metrics::Config do
 
       subject.populate_from_env
       expect(subject.prometheus_metrics_path).to eq("/prometheus")
+    end
+
+    it "can set the mmap directory from env" do
+      stub_env("MMAP_DIRECTORY", "/something")
+
+      subject.populate_from_env
+      expect(subject.mmap_directory).to eq("/something")
     end
 
     it "enables auth if application id is present" do
