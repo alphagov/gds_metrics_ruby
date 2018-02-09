@@ -6,4 +6,8 @@ task :features do
   system("pushd spec/dummy && bundle exec rake && popd")
 end
 
-task default: [:units, :features]
+task :lint do
+  system("govuk-lint-ruby")
+end
+
+task default: %i(units features lint)

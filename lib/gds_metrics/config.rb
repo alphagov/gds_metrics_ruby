@@ -19,7 +19,7 @@ module GDS
         self.auth_enabled = !application_id.nil?
       end
 
-      private
+    private
 
       def fetch_application_id
         vcap_application = JSON.parse(ENV.fetch("VCAP_APPLICATION", "{}"))

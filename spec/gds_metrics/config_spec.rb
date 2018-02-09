@@ -48,4 +48,3 @@ RSpec.describe GDS::Metrics::Config do
     end
   end
 end
-

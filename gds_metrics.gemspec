@@ -15,11 +15,10 @@ Gem::Specification.new do |s|
 
   s.add_dependency "prometheus-client-mmap", "0.9.1"
 
-  s.add_development_dependency "rspec", "3.7.0"
+  s.add_development_dependency "govuk-lint", "3.6.0"
   s.add_development_dependency "pry", "0.11.3"
-  s.add_development_dependency "rake", "12.3.0"
-
-  # For the dummy app's tests:
   s.add_development_dependency "rails", "5.1.4"
+  s.add_development_dependency "rake", "12.3.0"
+  s.add_development_dependency "rspec", "3.7.0"
   s.add_development_dependency "rspec-rails", "3.7.2"
 end
