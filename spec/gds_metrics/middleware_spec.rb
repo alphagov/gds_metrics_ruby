@@ -1,11 +1,11 @@
 RSpec.describe GDS::Metrics::Middleware do
-  class FakeApp
+  class MiddlewareFakeApp
     def call(_)
       [200, {}, []]
     end
   end
 
-  let(:app) { FakeApp.new }
+  let(:app) { MiddlewareFakeApp.new }
   let(:config) { GDS::Metrics::Config.instance }
 
   subject { described_class.new(app) }

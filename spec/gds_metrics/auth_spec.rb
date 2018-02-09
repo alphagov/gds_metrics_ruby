@@ -1,11 +1,11 @@
 RSpec.describe GDS::Metrics::Auth do
-  class FakeApp
+  class AuthFakeApp
     def call(_)
       [200, {}, []]
     end
   end
 
-  let(:app) { FakeApp.new }
+  let(:app) { AuthFakeApp.new }
   let(:config) { GDS::Metrics::Config.instance }
 
   before do

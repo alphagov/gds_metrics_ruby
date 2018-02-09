@@ -5,7 +5,9 @@ module GDS
 
       def initialize(app)
         self.wrapped_app = Rack::Builder.app do
+          use GDS::Metrics::Gzip
           use GDS::Metrics::Auth
+
           use Prometheus::Client::Rack::Collector
           use Prometheus::Client::Rack::Exporter
 

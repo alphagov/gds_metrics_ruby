@@ -10,6 +10,7 @@ require "gds_metrics/version"
 require "gds_metrics/middleware"
 require "gds_metrics/config"
 require "gds_metrics/auth"
+require "gds_metrics/gzip"
 
 require "gds_metrics/railtie" if defined?(Rails)
 
