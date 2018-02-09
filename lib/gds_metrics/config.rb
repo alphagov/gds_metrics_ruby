@@ -9,6 +9,8 @@ module GDS
       attr_accessor :prometheus_metrics_path
       attr_accessor :auth_enabled
 
+      alias :auth_enabled? :auth_enabled
+
       def self.instance
         @singleton ||= Config.new
       end
