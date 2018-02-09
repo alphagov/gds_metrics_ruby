@@ -23,7 +23,7 @@ module GDS
       end
 
       def authorized?(env)
-        header = env.fetch("Authorization", "")
+        header = env.fetch("HTTP_AUTHORIZATION", "")
         token = header[/Bearer (.*)/i, 1]
 
         token == config.application_id

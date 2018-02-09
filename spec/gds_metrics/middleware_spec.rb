@@ -19,7 +19,7 @@ RSpec.describe GDS::Metrics::Middleware do
     {
       "REQUEST_METHOD" => "GET",
       "PATH_INFO" => "/metrics",
-      "Authorization" => "Bearer wrong",
+      "HTTP_AUTHORIZATION" => "Bearer wrong",
     }
   end
 
@@ -27,7 +27,7 @@ RSpec.describe GDS::Metrics::Middleware do
     status, = subject.call(env)
     expect(status).to eq(401)
 
-    env["Authorization"] = "Bearer app-123"
+    env["HTTP_AUTHORIZATION"] = "Bearer app-123"
 
     status, = subject.call(env)
     expect(status).to eq(200)

@@ -20,7 +20,7 @@ RSpec.describe GDS::Metrics::Auth do
 
   let(:request_env) do
     if request_token
-      { "PATH_INFO" => request_path, "Authorization" => "Bearer #{request_token}" }
+      { "PATH_INFO" => request_path, "HTTP_AUTHORIZATION" => "Bearer #{request_token}" }
     else
       { "PATH_INFO" => request_path }
     end
@@ -48,7 +48,7 @@ RSpec.describe GDS::Metrics::Auth do
 
     context "when auth is enabled" do
       context "when the bearer token matches" do
-        let(:env) { { "Authorization" => "Bearer app-123" } }
+        let(:env) { { "HTTP_AUTHORIZATION" => "Bearer app-123" } }
 
         it "responds with 200" do
           status, = subject.call(request_env)
