@@ -18,8 +18,7 @@ module GDS
     private
 
       def compress(env)
-        condition = ->(_, _, _, body) { body.any? && body[0].length > 512 }
-        Rack::Deflater.new(app, if: condition).call(env)
+        Rack::Deflater.new(app).call(env)
       end
 
       def metrics_path?(env)

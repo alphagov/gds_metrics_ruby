@@ -3,15 +3,11 @@ RSpec.describe GDS::Metrics::Gzip do
     attr_accessor :body
 
     def call(_)
-      [200, {}, [body]]
+      [200, {}, ["body"]]
     end
   end
 
   let(:app) { GzipFakeApp.new }
-
-  before do
-    app.body = "really long body " * 100
-  end
 
   subject { described_class.new(app) }
 
@@ -25,20 +21,9 @@ RSpec.describe GDS::Metrics::Gzip do
   context "/metrics" do
     let(:request_path) { "/metrics" }
 
-    context "for a long body" do
-      it "compresses response data" do
-        _, _, body = subject.call(env)
-        expect(body).to be_a(Rack::Deflater::GzipStream)
-      end
-    end
-
-    context "for a short body" do
-      before { app.body = "short body" }
-
-      it "does not compress short bodies" do
-        _, _, body = subject.call(env)
-        expect(body).not_to be_a(Rack::Deflater::GzipStream)
-      end
+    it "compresses response data" do
+      _, _, body = subject.call(env)
+      expect(body).to be_a(Rack::Deflater::GzipStream)
     end
   end
 
