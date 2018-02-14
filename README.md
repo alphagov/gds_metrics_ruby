@@ -42,14 +42,6 @@ You can configure the metrics path with an environment variable:
 $ PROMETHEUS_METRICS_PATH=/my-path bundle exec rails s
 ```
 
-Or it can be configured in Ruby:
-
-```ruby
-GDS::Metrics.configure do |config|
-  config.prometheus_metrics_path = "/my-path"
-end
-```
-
 ### Authentication
 
 If your app is running on the
@@ -74,12 +66,4 @@ You can set a different path with an environment variable:
 
 ```
 $ MMAP_DIRECTORY=/somewhere/else bundle exec rails s
-```
-
-Or it can be configured in Ruby:
-
-```ruby
-GDS::Metrics.configure do |config|
-  config.mmap_directory = "/somewhere/else"
-end
 ```
