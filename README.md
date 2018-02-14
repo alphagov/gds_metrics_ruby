@@ -22,6 +22,8 @@ gem 'gds_metrics'
 
 Then run your app and visit `/metrics`.
 
+If you're not using Rails, you'll also need to add `use GDS::Metrics::Middleware`.
+
 ### Custom metrics
 
 By default, some metrics will be recorded like `http_request_duration_seconds`,
