@@ -1,69 +1,65 @@
 ## GDS Metrics
 
-Instrument your web app to export Prometheus metrics.
+Instrument your web app to export [Prometheus](https://prometheus.io/) metrics.
 
 ### Overview
 
-This gem can be added to your web application to capture metrics about how it's
-performing. These metrics are exported in the [Prometheus](https://prometheus.io/)
-format and exposed via an endpoint. If your app is Rails, the gem
-[has a Railtie](https://github.com/alphagov/gds_metrics_ruby/blob/master/lib/gds_metrics/railtie.rb)
-that hooks into the
-[middleware stack](https://www.amberbit.com/blog/2011/07/13/introduction-to-rack-middleware/),
-meaning very little setup is required.
+This gem can be added to your web app to capture metrics about how it's
+performing. These metrics are served from an endpoint of your app and can be
+scraped by Prometheus and turned into Grafana dashboards.
 
-### Setup
+### Setup for Rails
 
-Add the gem to your Gemfile:
+1. Add the [latest version of the gem](https://rubygems.org/gems/gds_metrics) to
+your Gemfile:
 
 ```ruby
-gem 'gds_metrics'
+gem 'gds_metrics', '~> x.x.x'
 ```
 
-Then run your app and visit `/metrics`.
+2. Install the gem: `bundle install`
+3. Set an environment variable: `export PROMETHEUS_METRICS_PATH=/metrics`
+4. Restart your rails server: `bundle exec rails server`
+5. Visit any page of your app, e.g. [the index page](http://localhost:3000/)
+6. Visit the metrics endpoint: [localhost:3000/metrics](http://localhost:3000/metrics)
 
-If you're not using Rails, you'll also need to add `use GDS::Metrics::Middleware`.
+You should see a page containing metrics like `http_req_duration_seconds`.
 
-### Custom metrics
+The gem is now set up correctly.
 
-By default, some metrics will be recorded like `http_request_duration_seconds`,
-but you can record your own metrics, too. This might be things like how many
-emails your system's sent, or how many users are signed up for your service.
+### Non-Rails apps
+
+If you're not using Rails, before running your server, you'll also need to add
+`GDS::Metrics::Middleware` as a
+[Rack middleware](https://www.amberbit.com/blog/2011/07/13/introduction-to-rack-middleware/).
+Refer to your framework's documentation for how to do this, e.g.
+[Sinatra](http://sinatrarb.com/intro#Rack%20Middleware),
+[Grape](https://github.com/ruby-grape/grape#using-custom-middleware).
+
+### Running on the PaaS
+
+If your app runs on the [GOV.UK PaaS](https://www.cloud.service.gov.uk/), you'll
+need to set the environment variable with:
+
+```bash
+$ cf set-env your-app-name PROMETHEUS_METRICS_PATH /metrics
+```
+
+This command makes the metrics endpoint available in production, whereas the
+setup steps above only applied temporarily to the server on your local machine.
+
+In production, this endpoint is automatically protected with authentication.
+Citizens will not be able to see your metrics.
+
+### Adding custom metrics
+
+This step is optional.
+
+By default, common metrics will be recorded, but you can record your own
+metrics, too. You might want to capture how many users are signed up for your
+service or how many emails it's sent.
 
 The gem is built on top of the `prometheus_ruby_client`, so you can use the
-[metrics it provides](https://github.com/prometheus/client_ruby#metrics) for
-this.
-
-### Configuring the path
-
-You can configure the metrics path with an environment variable:
-
-```
-$ PROMETHEUS_METRICS_PATH=/my-path bundle exec rails s
-```
-
-### Authentication
-
-If your app is running on the
-[GOV.UK PaaS](https://docs.cloud.service.gov.uk/#technical-documentation-for-gov-uk-paas),
-the metrics endpoint requires a bearer token. This bearer token is set to your
-application's id. This can be found by running `cf apps`. Here's an example of a
-request that passes a bearer token:
-
-```
-$ curl -H 'Authorization: Bearer my-app-id' https://myservice.cloudapps.digital
-```
-
-### Multi-process model
-
-This gem handles the case where your application runs multiple processes to
-handle web requests. This is typically the case in production, where you might
-be using [Unicorn](https://github.com/blog/517-unicorn) or
-[Puma](https://github.com/puma/puma). It writes a memory-mapped file to `/tmp`
-to facilitate this.
-
-You can set a different path with an environment variable:
-
-```
-$ MMAP_DIRECTORY=/somewhere/else bundle exec rails s
-```
+[interface it provides](https://github.com/prometheus/client_ruby#metrics) for
+this. There's more documentation on types of metric
+[here](https://prometheus.io/docs/concepts/metric_types/).
