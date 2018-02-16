@@ -1,4 +1,4 @@
-RSpec.describe GDS::Metrics::Registry do
+RSpec.describe GDS::Metrics::Proxy do
   let(:prometheus_registry) { Prometheus::Client.registry }
 
   it "forwards methods to the prometheus registry by default" do

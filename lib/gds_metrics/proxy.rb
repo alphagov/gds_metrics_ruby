@@ -1,6 +1,6 @@
 module GDS
   module Metrics
-    class Registry
+    class Proxy
       def initialize(registry = Prometheus::Client.registry)
         @registry = registry
       end
