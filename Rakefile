@@ -1,3 +1,9 @@
+task :clean do
+  require "gds_metrics"
+  GDS::Metrics::Mmap.clean
+  puts "Cleaned up mmap directory"
+end
+
 task :units do
   system("bundle exec rspec --exclude-pattern 'spec/dummy/**/*'")
 end
@@ -10,4 +16,4 @@ task :lint do
   system("govuk-lint-ruby")
 end
 
-task default: %i(units features lint)
+task default: %i(clean units features lint)
