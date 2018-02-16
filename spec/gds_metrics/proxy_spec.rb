@@ -27,7 +27,7 @@ RSpec.describe GDS::Metrics::Proxy do
       .with(:http_server_requests_total, "description")
 
     expect(prometheus_registry).to receive(:counter)
-      .with(:http_server_exeptions_total, "description")
+      .with(:http_server_exceptions_total, "description")
 
     expect(prometheus_registry).to receive(:histogram)
       .with(:http_server_request_duration_seconds, "description")

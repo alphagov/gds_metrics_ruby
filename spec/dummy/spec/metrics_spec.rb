@@ -5,11 +5,12 @@ RSpec.describe "/metrics", type: :request do
   end
 
   it "returns metric names from a pre-defined set" do
+    expect { get "/trigger-error" }.to raise_error("something")
+
     get "/metrics"
 
-    # TODO: trigger an exception
-
     expect(unique_metric_names).to eq(%w(
+      http_server_exceptions_total
       http_server_request_duration_seconds_bucket
       http_server_request_duration_seconds_count
       http_server_request_duration_seconds_sum
