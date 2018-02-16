@@ -1,3 +1,3 @@
 Rails.application.routes.draw do
-  root to: "hello#hello"
+  get "/trigger-error", to: "error#error"
 end
