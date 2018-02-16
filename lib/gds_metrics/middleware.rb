@@ -8,7 +8,7 @@ module GDS
           use GDS::Metrics::Gzip
           use GDS::Metrics::Auth
 
-          use Prometheus::Client::Rack::Collector
+          use Prometheus::Client::Rack::Collector, registry: Registry.new
           use Prometheus::Client::Rack::Exporter
 
           run app
