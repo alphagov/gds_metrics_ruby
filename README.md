@@ -63,3 +63,28 @@ The gem is built on top of the `prometheus_ruby_client`, so you can use the
 [interface it provides](https://github.com/prometheus/client_ruby#metrics) for
 this. There's more documentation on types of metric
 [here](https://prometheus.io/docs/concepts/metric_types/).
+
+### Making authenticated requests
+
+This step is optional.
+
+Sometimes it's useful to see the raw metrics data produced by your application.
+This allows you to check that metrics is configured correctly and any custom
+metrics you've added are being recorded.
+
+If your application is on the GOV.UK PaaS, you'll need to add an `Authorization`
+header to your request to get this data.
+
+First, look up your application's id:
+
+```bash
+$ cf env your-app-name | grep application_id
+```
+
+Then set this as a bearer token in your request:
+
+```bash
+$ curl -H 'Authorization: Bearer <your-app-id>' https://your-app.cloudapps.digital/metrics
+```
+
+The example above uses [curl](https://curl.haxx.se/) to make the HTTP request.
