@@ -51,7 +51,7 @@ Your metrics endpoint will now be available in your production environment. Citi
 
 The PaaS documentation has information on how you can [deploy a basic Ruby on Rails app][]. You can also read the official Cloud Foundry guide which has detailed information on [deploying Ruby on Rails apps][].
 
-## Custom metrics
+## How to setup extended metrics
 
 While common metrics are recorded by default, you can also:
 
