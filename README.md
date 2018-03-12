@@ -2,7 +2,7 @@
 
 GDS Metrics are in Alpha and these instructions are subject to change.
 
-GDS Rails metrics enable your [Ruby][] web app to export performance data to [Prometheus][] and can be added to your app using this [Ruby gem][]. Once you’ve added the gem, metrics data is served from your app's metrics endpoint and is scraped by Prometheus. This data can be turned into performance dashboards using [Grafana][].
+GDS Rails metrics enable your [Ruby][] web app to export performance data to [Prometheus][], you can add metrics to your app using this [Ruby gem][]. Once you’ve added the gem, metrics data is served from your app's metrics endpoint and is scraped by Prometheus. This data can be turned into performance dashboards using [Grafana][].
 
 You can read more about the Reliability Engineering monitoring solution [here][].
 
