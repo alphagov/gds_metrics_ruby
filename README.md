@@ -13,7 +13,7 @@ You can read more about the Reliability Engineering monitoring solution [here][]
 Before using GDS metrics you should have:
 
 * created a Rails or [Rack][] app
-* deployed it to the [PaaS][]
+* deployed it to [GOV.UK Platform as a Service (PaaS)][]
 
 ## How to install metrics for Rails apps
 
@@ -55,9 +55,10 @@ The PaaS documentation has information on how you can [deploy a basic Ruby on Ra
 
 ## Custom metrics
 
-While common metrics are recorded by default, you can also record your own metrics such as how many users are signed up for your service, or how many emails it's sent.
+While common metrics are recorded by default, you can also:
 
-You can use the Prometheus interface to set your own metrics because the metrics Ruby gem is built on top of the [Prometheus Ruby Client][].
+* record your own metrics such as how many users are signed up for your service, or how many emails it's sent
+* use the Prometheus interface to set your own metrics as the metrics Ruby gem is built on top of the [Prometheus Ruby Client][]
 
 You can read more about the different types of metrics available in the [Prometheus documentation][].
 
@@ -77,6 +78,7 @@ This project is licensed under the [MIT License][].
 [Grafana]: https://grafana.com/
 [here]: https://reliability-engineering.cloudapps.digital/#reliability-engineering
 [Rack]: https://rack.github.io/
+[GOV.UK Platform as a Service (PaaS)]: https://www.cloud.service.gov.uk/
 [the index page]: http://localhost:3000/
 [Rack middleware]: https://www.amberbit.com/blog/2011/07/13/introduction-to-rack-middleware/
 [Sinatra]: http://sinatrarb.com/intro#Rack%20Middleware
