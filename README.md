@@ -2,11 +2,9 @@
 
 GDS Metrics are in Alpha and these instructions are subject to change.
 
-## What are GDS metrics for?
-
 GDS Rails metrics enable your [Ruby][] web app to export performance data to [Prometheus][] and can be added to your app using this [Ruby gem][].
 
-Once the you’ve added the gem, metrics data is served from the metrics endpoint and is scraped by Prometheus. This data can be turned into performance dashboards using [Grafana][].
+Once you’ve added the gem, metrics data is served from your app's metrics endpoint and is scraped by Prometheus. This data can be turned into performance dashboards using [Grafana][].
 
 You can read more about the Reliability Engineering monitoring solution [here][].
 
@@ -15,7 +13,7 @@ You can read more about the Reliability Engineering monitoring solution [here][]
 Before using GDS metrics you should have:
 
 * created a Rails or [Rack][] app
-* deployed it to the PaaS
+* deployed it to the [PaaS][]
 
 ## How to install metrics for Rails apps
 
@@ -39,7 +37,7 @@ To use GDS metrics you must:
 
 5. Visit any page of your app (for example [the index page][]) to generate some site traffic
 
-6. Visit the metrics endpoint at localhost:3000/metrics to check if the gem was set up correctly. If it is set up correctly, you will see a page containing some metrics (for example http_req_duration_seconds).
+6. Visit the metrics endpoint at localhost:3000/metrics to check if the gem was set up correctly. If it's set up correctly, you will see a page containing some metrics (for example http_req_duration_seconds).
 
 If you're not using Rails, you'll also need to add GDS::Metrics::Middleware as [Rack middleware][] before running your Rails server. You’ll also need to refer to your framework's documentation, for example [Sinatra][] or [Grape][] middleware.
 
@@ -53,19 +51,19 @@ Where `your-app-name` is the name of your app.
 
 Your metrics endpoint will now be available in your production environment. Citizens won’t see your metrics in production as this endpoint is automatically protected with authentication.
 
-The PaaS documentation has some information on how you can [deploy a basic Ruby on Rails app][]. You can also read the official Cloud Foundry guide which has detailed information on [deploying Ruby on Rails apps][].
+The PaaS documentation has information on how you can [deploy a basic Ruby on Rails app][]. You can also read the official Cloud Foundry guide which has detailed information on [deploying Ruby on Rails apps][].
 
 ## Custom metrics
 
-Common metrics are recorded by default. You can also record your own metrics such as how many users are signed up for your service, or how many emails it's sent.
+While common metrics are recorded by default, you can also record your own metrics such as how many users are signed up for your service, or how many emails it's sent.
 
-The metrics Ruby gem is built on top of the [Prometheus Ruby Client][], you can use its interface to to set your own metrics.
+You can use the Prometheus interface to set your own metrics because the metrics Ruby gem is built on top of the [Prometheus Ruby Client][].
 
-You read more about the different types of metrics available in the [Prometheus documentation][].
+You can read more about the different types of metrics available in the [Prometheus documentation][].
 
 ## Contributing
 
-GDS Reliability Engineering welcome contributions, but we'd appreciate it if you write tests with your changes and document them where appropriate, this will help us review them quickly.
+GDS Reliability Engineering welcome contributions. We'd appreciate it if you write tests with your changes and document them where appropriate, this will help us review them quickly.
 
 ## Licence
 
