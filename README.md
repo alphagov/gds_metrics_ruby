@@ -78,7 +78,7 @@ header to your request to get this data.
 First, look up your application's id:
 
 ```bash
-$ cf env your-app-name | grep application_id
+$ cf app your-app-name --guid
 ```
 
 Then set this as a bearer token in your request:
