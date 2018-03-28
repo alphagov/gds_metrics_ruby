@@ -12,7 +12,7 @@ module GDS
 
       class << self
         def set_uptime
-          uptime_seconds.set({}, current_time - boot_time)
+          uptime_seconds.set(labels, current_time - boot_time)
         end
 
         def uptime_seconds
@@ -27,6 +27,10 @@ module GDS
 
         def current_time
           Time.now
+        end
+
+        def labels
+          { boot_epoch_time: boot_time.to_i }
         end
 
         def prometheus

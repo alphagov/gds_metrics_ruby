@@ -12,11 +12,13 @@ RSpec.describe GDS::Metrics::Uptime do
     allow(described_class).to receive(:boot_time).and_return(100)
 
     allow(described_class).to receive(:current_time).and_return(103)
-    expect(described_class.uptime_seconds).to receive(:set).with({}, 3)
+    expect(described_class.uptime_seconds)
+      .to receive(:set).with({ boot_epoch_time: 100 }, 3)
     subject.call({})
 
     allow(described_class).to receive(:current_time).and_return(105)
-    expect(described_class.uptime_seconds).to receive(:set).with({}, 5)
+    expect(described_class.uptime_seconds)
+      .to receive(:set).with({ boot_epoch_time: 100 }, 5)
     subject.call({})
   end
 end
