@@ -11,6 +11,7 @@ require "gds_metrics/proxy"
 require "gds_metrics/config"
 require "gds_metrics/auth"
 require "gds_metrics/gzip"
+require "gds_metrics/uptime"
 require "gds_metrics/railtie" if defined?(Rails)
 
 GDS::Metrics::Config.instance.populate_from_env

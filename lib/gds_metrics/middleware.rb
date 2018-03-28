@@ -7,6 +7,7 @@ module GDS
         self.wrapped_app = Rack::Builder.app do
           use GDS::Metrics::Gzip
           use GDS::Metrics::Auth
+          use GDS::Metrics::Uptime
 
           use Prometheus::Client::Rack::Collector, registry: Proxy.new
           use Prometheus::Client::Rack::Exporter
