@@ -25,31 +25,25 @@ To use GDS metrics you must:
 
     ```bundle install```
 
-3. Set an environment variable so Prometheus can discover your app’s metrics, for example:
-
-    ```export PROMETHEUS_METRICS_PATH=/metrics```
-
-4. Restart your Rails server by running:  
+3. Restart your Rails server by running:
 
     ```bundle exec rails server```
 
-5. Visit any page of your app (for example [the index page][]) to generate some site traffic
+4. Visit any page of your app (for example [the index page][]) to generate some site traffic
 
-6. Visit the metrics endpoint at localhost:3000/metrics to check if the gem was set up correctly. If it's set up correctly, you will see a page containing some metrics (for example http_req_duration_seconds).
+5. Visit the metrics endpoint at `/metrics` to check if the gem was set up correctly. If it's set up correctly, you will see a page containing some metrics (for example `http_req_duration_seconds`).
 
 If you're not using Rails, you'll also need to add GDS::Metrics::Middleware as [Rack middleware][] before running your Rails server. You’ll also need to refer to your framework's documentation, for example [Sinatra][] or [Grape][] middleware.
 
 ## Running on GOV.UK Platform as a Service (PaaS)
 
-The install steps for GDS Metrics only apply to the Rails server on your local machine. If your app runs on [PaaS][], you'll need to set the [environment variable][] by running:
-
-```$ cf set-env your-app-name PROMETHEUS_METRICS_PATH /metrics```
-
-Where `your-app-name` is the name of your app.
-
-Your metrics endpoint will now be available in your production environment. Citizens won’t see your metrics in production as this endpoint is automatically protected with authentication.
+When running on PaaS, citizens won’t see your metrics in production as this endpoint is automatically protected with authentication.
 
 The PaaS documentation has information on how you can [deploy a basic Ruby on Rails app][]. You can also read the official Cloud Foundry guide which has detailed information on [deploying Ruby on Rails apps][].
+
+## Optional configuration
+
+You can change the path for serving metrics (by default `/metrics`) by setting the `PROMETHEUS_METRICS_PATH` environment variable.
 
 ## How to setup extended metrics
 
