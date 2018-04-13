@@ -2,7 +2,15 @@
 
 GDS Metrics are in Alpha and these instructions are subject to change.
 
-GDS Ruby metrics enable your [Ruby][] web app to export performance data to [Prometheus][], you can add metrics to your app using this [Ruby gem][]. Once you’ve added the gem, metrics data is served from your app's metrics endpoint and is scraped by Prometheus. This data can be turned into performance dashboards using [Grafana][].
+GDS Ruby metrics enable your [Ruby][] web app to export performance data to [Prometheus][], you can add metrics to your app using this [Ruby gem][].
+
+This gem is a thin wrapper around gitlab's [prometheus-client-mmap][] that:
+
+* adds a [railtie][] for easy configuration for [Rails][] apps
+* fixes label naming so it's consistent with the official [Prometheus Ruby Client][]
+* protects your `/metrics` endpoint with basic HTTP authentication for apps deployed to GOV.UK PaaS
+
+Once you’ve added the gem, metrics data is served from your app's metrics endpoint and is scraped by Prometheus. This data can be turned into performance dashboards using [Grafana][].
 
 You can read more about the Reliability Engineering monitoring solution [here][].
 
@@ -50,7 +58,7 @@ You can change the path for serving metrics (by default `/metrics`) by setting t
 While common metrics are recorded by default, you can also:
 
 * record your own metrics such as how many users are signed up for your service, or how many emails it's sent
-* use the Prometheus interface to set your own metrics as the metrics Ruby gem is built on top of the [Prometheus Ruby Client][]
+* use the Prometheus interface to set your own metrics as the metrics Ruby gem is built on top of [prometheus-client-mmap][]
 
 You can read more about the different types of metrics available in the [Prometheus documentation][].
 
@@ -66,6 +74,7 @@ This project is licensed under the [MIT License][].
 
 [Ruby]: https://www.ruby-lang.org/en/
 [Rails]: http://rubyonrails.org/
+[railtie]: http://api.rubyonrails.org/classes/Rails/Railtie.html
 [Prometheus]: https://prometheus.io/
 [Ruby gem]: https://rubygems.org/gems/gds_metrics
 [Grafana]: https://grafana.com/
@@ -81,5 +90,6 @@ This project is licensed under the [MIT License][].
 [deploy a basic Ruby on Rails app]: https://docs.cloud.service.gov.uk/#deploy-a-ruby-on-rails-app
 [deploying Ruby on Rails apps]: http://docs.cloudfoundry.org/buildpacks/ruby/gsg-ror.html
 [Prometheus Ruby Client]: https://github.com/prometheus/client_ruby#metrics
+[prometheus-client-mmap]: https://gitlab.com/gitlab-org/prometheus-client-mmap
 [Prometheus documentation]: https://prometheus.io/docs/concepts/metric_types/
 [MIT License]: https://github.com/alphagov/gds_metrics_ruby/blob/master/LICENSE
