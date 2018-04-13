@@ -17,9 +17,9 @@ Before using GDS metrics you should have:
 
 To use GDS metrics you must:
 
-1. Add the [latest version of the gem](https://rubygems.org/gems/gds_metrics) to your Gemfile, and run it using the command line, for example:
+1. Add the [latest version of the gem](https://rubygems.org/gems/gds_metrics) to your Gemfile, for example:
 
-    ```ruby gem 'gds_metrics', '~> x.x.x'```
+    ```gem 'gds_metrics'```
 
 2. Run the following command to install the gem:
 
