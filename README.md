@@ -1,90 +1,85 @@
-## GDS Metrics
+# GDS metrics for Ruby apps
 
-Instrument your web app to export [Prometheus](https://prometheus.io/) metrics.
+GDS Metrics are in Alpha and these instructions are subject to change.
 
-### Overview
+GDS Ruby metrics enable your [Ruby][] web app to export performance data to [Prometheus][], you can add metrics to your app using this [Ruby gem][]. Once you’ve added the gem, metrics data is served from your app's metrics endpoint and is scraped by Prometheus. This data can be turned into performance dashboards using [Grafana][].
 
-This gem can be added to your web app to capture metrics about how it's
-performing. These metrics are served from an endpoint of your app and can be
-scraped by Prometheus and turned into Grafana dashboards.
+You can read more about the Reliability Engineering monitoring solution [here][].
 
-### Setup for Rails
+## Before using GDS metrics
 
-1. Add the [latest version of the gem](https://rubygems.org/gems/gds_metrics) to
-your Gemfile:
+Before using GDS metrics you should have:
 
-```ruby
-gem 'gds_metrics', '~> x.x.x'
-```
+* created a [Rails][] or [Rack][] app
+* deployed it to [GOV.UK Platform as a Service (PaaS)][]
 
-2. Install the gem: `bundle install`
-3. Set an environment variable: `export PROMETHEUS_METRICS_PATH=/metrics`
-4. Restart your rails server: `bundle exec rails server`
-5. Visit any page of your app, e.g. [the index page](http://localhost:3000/)
-6. Visit the metrics endpoint: [localhost:3000/metrics](http://localhost:3000/metrics)
+## How to install metrics for Rails apps
 
-You should see a page containing metrics like `http_req_duration_seconds`.
+To use GDS metrics you must:
 
-The gem is now set up correctly.
+1. Add the [latest version of the gem](https://rubygems.org/gems/gds_metrics) to your Gemfile, for example:
 
-### Non-Rails apps
+    ```gem 'gds_metrics'```
 
-If you're not using Rails, before running your server, you'll also need to add
-`GDS::Metrics::Middleware` as a
-[Rack middleware](https://www.amberbit.com/blog/2011/07/13/introduction-to-rack-middleware/).
-Refer to your framework's documentation for how to do this, e.g.
-[Sinatra](http://sinatrarb.com/intro#Rack%20Middleware),
-[Grape](https://github.com/ruby-grape/grape#using-custom-middleware).
+2. Run the following command to install the gem:
 
-### Running on the PaaS
+    ```bundle install```
 
-If your app runs on the [GOV.UK PaaS](https://www.cloud.service.gov.uk/), you'll
-need to set the environment variable with:
+3. Restart your Rails server by running:
 
-```bash
-$ cf set-env your-app-name PROMETHEUS_METRICS_PATH /metrics
-```
+    ```bundle exec rails server```
 
-This command makes the metrics endpoint available in production, whereas the
-setup steps above only applied temporarily to the server on your local machine.
+4. Visit any page of your app (for example [the index page][]) to generate some site traffic
 
-In production, this endpoint is automatically protected with authentication.
-Citizens will not be able to see your metrics.
+5. Visit the metrics endpoint at `/metrics` to check if the gem was set up correctly. If it's set up correctly, you will see a page containing some metrics (for example `http_req_duration_seconds`).
 
-### Adding custom metrics
+If you're not using Rails, you'll also need to add GDS::Metrics::Middleware as [Rack middleware][] before running your Rails server. You’ll also need to refer to your framework's documentation, for example [Sinatra][] or [Grape][] middleware.
 
-This step is optional.
+## Running on GOV.UK Platform as a Service (PaaS)
 
-By default, common metrics will be recorded, but you can record your own
-metrics, too. You might want to capture how many users are signed up for your
-service or how many emails it's sent.
+When running on PaaS, citizens won’t see your metrics in production as this endpoint is automatically protected with authentication.
 
-The gem is built on top of the `prometheus_ruby_client`, so you can use the
-[interface it provides](https://github.com/prometheus/client_ruby#metrics) for
-this. There's more documentation on types of metric
-[here](https://prometheus.io/docs/concepts/metric_types/).
+The PaaS documentation has information on how you can [deploy a basic Ruby on Rails app][]. You can also read the official Cloud Foundry guide which has detailed information on [deploying Ruby on Rails apps][].
 
-### Making authenticated requests
+## Optional configuration
 
-This step is optional.
+You can change the path for serving metrics (by default `/metrics`) by setting the `PROMETHEUS_METRICS_PATH` environment variable.
 
-Sometimes it's useful to see the raw metrics data produced by your application.
-This allows you to check that metrics is configured correctly and any custom
-metrics you've added are being recorded.
+## How to setup extended metrics
 
-If your application is on the GOV.UK PaaS, you'll need to add an `Authorization`
-header to your request to get this data.
+While common metrics are recorded by default, you can also:
 
-First, look up your application's id:
+* record your own metrics such as how many users are signed up for your service, or how many emails it's sent
+* use the Prometheus interface to set your own metrics as the metrics Ruby gem is built on top of the [Prometheus Ruby Client][]
 
-```bash
-$ cf app your-app-name --guid
-```
+You can read more about the different types of metrics available in the [Prometheus documentation][].
 
-Then set this as a bearer token in your request:
+## Contributing
 
-```bash
-$ curl -H 'Authorization: Bearer <your-app-id>' https://your-app.cloudapps.digital/metrics
-```
+GDS Reliability Engineering welcome contributions. We'd appreciate it if you write tests with your changes and document them where appropriate, this will help us review them quickly.
 
-The example above uses [curl](https://curl.haxx.se/) to make the HTTP request.
+## Licence
+
+This project is licensed under the [MIT License][].
+
+
+
+[Ruby]: https://www.ruby-lang.org/en/
+[Rails]: http://rubyonrails.org/
+[Prometheus]: https://prometheus.io/
+[Ruby gem]: https://rubygems.org/gems/gds_metrics
+[Grafana]: https://grafana.com/
+[here]: https://reliability-engineering.cloudapps.digital/#reliability-engineering
+[Rack]: https://rack.github.io/
+[GOV.UK Platform as a Service (PaaS)]: https://www.cloud.service.gov.uk/
+[the index page]: http://localhost:3000/
+[Rack middleware]: https://www.amberbit.com/blog/2011/07/13/introduction-to-rack-middleware/
+[Sinatra]: http://sinatrarb.com/intro#Rack%20Middleware
+[Grape]: https://github.com/ruby-grape/grape#using-custom-middleware
+[PaaS]: https://www.cloud.service.gov.uk/
+[environment variable]: https://docs.cloud.service.gov.uk/#environment-variables
+[deploy a basic Ruby on Rails app]: https://docs.cloud.service.gov.uk/#deploy-a-ruby-on-rails-app
+[deploying Ruby on Rails apps]: http://docs.cloudfoundry.org/buildpacks/ruby/gsg-ror.html
+[Prometheus Ruby Client]: https://github.com/prometheus/client_ruby#metrics
+[Prometheus documentation]: https://prometheus.io/docs/concepts/metric_types/
+[MIT License]: https://github.com/alphagov/gds_metrics_ruby/blob/master/LICENSE
