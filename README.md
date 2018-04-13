@@ -51,7 +51,7 @@ The PaaS documentation has information on how you can [deploy a basic Ruby on Ra
 
 ## Optional configuration
 
-You can change the path for serving metrics (by default `/metrics`) by setting the `PROMETHEUS_METRICS_PATH` environment variable.
+You can change the path for serving metrics (by default `/metrics`) by setting the `PROMETHEUS_METRICS_PATH` [environment variable][].
 
 ## How to setup extended metrics
 
