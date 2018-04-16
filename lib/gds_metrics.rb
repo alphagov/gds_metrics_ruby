@@ -12,6 +12,7 @@ require "gds_metrics/config"
 require "gds_metrics/auth"
 require "gds_metrics/gzip"
 require "gds_metrics/railtie" if defined?(Rails)
+require "gds_metrics/path_converter"
 
 GDS::Metrics::Config.instance.populate_from_env
 GDS::Metrics::Mmap.setup

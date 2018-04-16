@@ -8,6 +8,7 @@ This gem is a thin wrapper around gitlab's [prometheus-client-mmap][] that:
 
 * adds a [railtie][] for easy configuration for [Rails][] apps
 * fixes label naming so it's consistent with the official [Prometheus Ruby Client][]
+* changes url path labels from unique paths to their Rails controller and action if the url path matches a route. For example - `blogs/8`, `blogs/9` => `blogs#view`
 * protects your `/metrics` endpoint with basic HTTP authentication for apps deployed to GOV.UK PaaS
 
 Once you’ve added the gem, metrics data is served from your app's metrics endpoint and is scraped by Prometheus. This data can be turned into performance dashboards using [Grafana][].

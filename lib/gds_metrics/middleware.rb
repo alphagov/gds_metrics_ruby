@@ -8,7 +8,20 @@ module GDS
           use GDS::Metrics::Gzip
           use GDS::Metrics::Auth
 
-          use Prometheus::Client::Rack::Collector, registry: Proxy.new
+          rails_label_builder = proc do |env|
+            {
+              method: env['REQUEST_METHOD'].downcase,
+              host:   env['HTTP_HOST'].to_s,
+              path:   PathConverter.convert_rails_path_to_route(env['PATH_INFO'].to_s),
+            }
+          end
+
+          if defined?(Rails)
+            use Prometheus::Client::Rack::Collector, registry: Proxy.new, &rails_label_builder
+          else
+            use Prometheus::Client::Rack::Collector, registry: Proxy.new
+          end
+
           use Prometheus::Client::Rack::Exporter
 
           run app
