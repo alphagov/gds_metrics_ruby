@@ -8,13 +8,11 @@ module GDS
           use GDS::Metrics::Gzip
           use GDS::Metrics::Auth
 
-          converter = GDS::Metrics::PathConverter.new
-
           rails_label_builder = proc do |env|
             {
               method: env['REQUEST_METHOD'].downcase,
               host:   env['HTTP_HOST'].to_s,
-              path:   converter.convert_rails_path_to_route(env['PATH_INFO'].to_s),
+              path:   GDS::Metrics::PathConverter.convert_rails_path_to_route(env['PATH_INFO'].to_s),
             }
           end
 
