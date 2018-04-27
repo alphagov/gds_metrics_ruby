@@ -7,7 +7,7 @@ module GDS
         route = Rails.application.routes.recognize_path(path)
         "#{route[:controller]}\##{route[:action]}"
       rescue ActionController::RoutingError
-        path
+        nil
       end
     end
   end
