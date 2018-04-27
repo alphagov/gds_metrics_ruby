@@ -8,6 +8,7 @@ This gem is a thin wrapper around gitlab's [prometheus-client-mmap][] that:
 
 * adds a [railtie][] for easy configuration for [Rails][] apps
 * fixes label naming so it's consistent with the official [Prometheus Ruby Client][]
+* changes url path labels from unique paths to their Rails controller and action if the url path matches a route. For example - `blogs/8`, `blogs/9` => `blogs#view`
 * protects your `/metrics` endpoint with basic HTTP authentication for apps deployed to GOV.UK PaaS
 
 Once you’ve added the gem, metrics data is served from your app's metrics endpoint and is scraped by Prometheus. This data can be turned into performance dashboards using [Grafana][].
@@ -48,6 +49,14 @@ If you're not using Rails, you'll also need to add GDS::Metrics::Middleware as [
 When running on PaaS, citizens won’t see your metrics in production as this endpoint is automatically protected with authentication.
 
 The PaaS documentation has information on how you can [deploy a basic Ruby on Rails app][]. You can also read the official Cloud Foundry guide which has detailed information on [deploying Ruby on Rails apps][].
+
+## Testing
+
+The test suite can be run in full using `bundle exec rake`, this includes unit and integration tests as well as a code style check using the [Govuk Linter][].
+
+Individual unit tests in `/spec/gds_metrics` can be run using `rspec path/to/test.rb`
+
+Because of the need to test the apps integration with rails there is a dummy Rails app within `/spec`. This app is run from within the test suite and integration tests are then executed against it. At the moment these tests cannot be run individually but can be run separately from the unit tests by running `pushd spec/dummy && bundle exec rake && popd`
 
 ## Optional configuration
 
@@ -93,3 +102,4 @@ This project is licensed under the [MIT License][].
 [prometheus-client-mmap]: https://gitlab.com/gitlab-org/prometheus-client-mmap
 [Prometheus documentation]: https://prometheus.io/docs/concepts/metric_types/
 [MIT License]: https://github.com/alphagov/gds_metrics_ruby/blob/master/LICENSE
+[Govuk Linter]: https://github.com/alphagov/govuk-lint
