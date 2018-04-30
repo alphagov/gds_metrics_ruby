@@ -11,6 +11,7 @@ require "gds_metrics/proxy"
 require "gds_metrics/config"
 require "gds_metrics/auth"
 require "gds_metrics/gzip"
+require "gds_metrics/uptime"
 require "gds_metrics/railtie" if defined?(Rails)
 require "gds_metrics/path_converter"
 

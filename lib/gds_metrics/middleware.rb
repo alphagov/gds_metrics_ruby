@@ -7,6 +7,7 @@ module GDS
         self.wrapped_app = Rack::Builder.app do
           use GDS::Metrics::Gzip
           use GDS::Metrics::Auth
+          use GDS::Metrics::Uptime
 
           if defined?(Rails)
             rails_label_builder = proc do |env|
