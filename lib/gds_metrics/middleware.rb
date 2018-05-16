@@ -10,12 +10,16 @@ module GDS
 
           if defined?(Rails)
             rails_label_builder = proc do |env|
+              method = env['REQUEST_METHOD'].downcase
+              path = env['PATH_INFO'].to_s
+              host = env['HTTP_HOST'].to_s
+
               {
-                method: env['REQUEST_METHOD'].downcase,
-                host:   env['HTTP_HOST'].to_s,
-                controller:   GDS::Metrics::PathConverter.convert_rails_path_to_route(env['PATH_INFO'].to_s),
+                method: method, host: host,
+                controller: GDS::Metrics::PathConverter.convert_rails_path_to_route(path, method)
               }
             end
+
             use Prometheus::Client::Rack::Collector, registry: Proxy.new, &rails_label_builder
           else
             use Prometheus::Client::Rack::Collector, registry: Proxy.new

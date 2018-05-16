@@ -1,21 +1,18 @@
 RSpec.describe "the path converter in use", type: :request do
   before do
     Rails.application.config.action_dispatch.show_exceptions = true
-    get "/foo/101"
-    get "/foo/102"
-    get "/foo/103"
+    get "/example/101"
+    post "/example/101"
     get "/metrics"
   end
 
   it "returns metric names using the controller and action used to access the path" do
-    expect(response.body).to include('controller="foo#bar"')
+    expect(response.body).to include('controller="example#get"')
+    expect(response.body).to include('controller="example#post"')
   end
 
   it "doesn't include the specific calls made" do
-    made_calls = %w(/foo/101 /foo/102 /foo/103)
-    made_calls.each do |call|
-      expect(response.body).not_to include("controller=\"#{call}\"")
-    end
+    expect(response.body).not_to include('controller="example#get/101"')
   end
 
   it "leaves the path alone for requests made without an action or controller" do

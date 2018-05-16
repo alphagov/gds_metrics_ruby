@@ -1,4 +1,5 @@
 Rails.application.routes.draw do
   get "/trigger-error", to: "error#error"
-  get 'foo/:bar' => 'foo#bar'
+  get 'example/:id' => 'example#get'
+  post 'example/:id' => 'example#post'
 end
