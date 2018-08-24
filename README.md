@@ -62,6 +62,8 @@ Because of the need to test the apps integration with rails there is a dummy Rai
 
 You can change the path for serving metrics (by default `/metrics`) by setting the `PROMETHEUS_METRICS_PATH` [environment variable][].
 
+If you are running `blue-green` deployments through a cf plugin like [autopilot][] it is advisable to disable the basic auth on the `\metrics` endpoint and use [IP whitelisting][] by setting the `METRICS_BASIC_AUTH` [environment variable][] to `false`. This will prevent gaps in metrics during deployment.
+
 ## How to setup extended metrics
 
 While common metrics are recorded by default, you can also:
@@ -103,3 +105,5 @@ This project is licensed under the [MIT License][].
 [Prometheus documentation]: https://prometheus.io/docs/concepts/metric_types/
 [MIT License]: https://github.com/alphagov/gds_metrics_ruby/blob/master/LICENSE
 [Govuk Linter]: https://github.com/alphagov/govuk-lint
+[autopilot]: https://github.com/contraband/autopilot
+[IP whitelisting]: https://reliability-engineering.cloudapps.digital/manuals/monitor-paas-app-with-prometheus.html#ip-whitelist-your-app-metrics-endpoint
