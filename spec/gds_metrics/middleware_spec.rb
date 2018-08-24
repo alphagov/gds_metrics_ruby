@@ -12,7 +12,7 @@ RSpec.describe GDS::Metrics::Middleware do
 
   before do
     config.application_id = "app-123"
-    config.auth_enabled = true
+    config.use_basic_auth = true
   end
 
   let(:env) do

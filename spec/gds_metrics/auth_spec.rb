@@ -10,7 +10,7 @@ RSpec.describe GDS::Metrics::Auth do
 
   before do
     config.application_id = "app-123"
-    config.auth_enabled = true
+    config.use_basic_auth = true
   end
 
   subject { described_class.new(app) }
@@ -37,8 +37,23 @@ RSpec.describe GDS::Metrics::Auth do
   end
 
   context "when the path is /metrics" do
+    context "when there is no application ID auth is disabled" do
+      before {
+        config.application_id = nil
+      }
+
+      it "responds with 200" do
+        status, = subject.call(request_env)
+        expect(status).to eq(200)
+      end
+    end
+
     context "when auth is disabled" do
-      before { config.auth_enabled = false }
+      before {
+        config.use_basic_auth = false
+      }
+
+      let(:request_token) { nil }
 
       it "responds with 200" do
         status, = subject.call(request_env)

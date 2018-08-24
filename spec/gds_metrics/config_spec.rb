@@ -20,7 +20,7 @@ RSpec.describe GDS::Metrics::Config do
       expect(subject.application_id).to be_nil
       expect(subject.prometheus_metrics_path).to eq("/metrics")
       expect(subject.mmap_directory).to eq("/tmp")
-      expect(subject.auth_enabled?).to eq(false)
+      expect(subject.use_basic_auth).to eq(true)
     end
 
     def stub_env(key, value)
@@ -52,7 +52,7 @@ RSpec.describe GDS::Metrics::Config do
       stub_env("VCAP_APPLICATION", { "application_id" => "something" }.to_json)
 
       subject.populate_from_env
-      expect(subject.auth_enabled?).to eq(true)
+      expect(subject.is_auth_enabled?).to eq(true)
     end
   end
 end
