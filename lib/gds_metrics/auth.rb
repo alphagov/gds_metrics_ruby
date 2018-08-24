@@ -9,7 +9,7 @@ module GDS
 
       def call(env)
         return app.call(env) unless metrics_path?(env)
-        return app.call(env) unless config.auth_enabled?
+        return app.call(env) unless config.is_auth_enabled?
         return app.call(env) if authorized?(env)
 
         unauthorized

@@ -20,7 +20,7 @@ RSpec.describe GDS::Metrics::Config do
       expect(subject.application_id).to be_nil
       expect(subject.prometheus_metrics_path).to eq("/metrics")
       expect(subject.mmap_directory).to eq("/tmp")
-      expect(subject.auth_enabled?).to eq(false)
+      expect(subject.use_basic_auth).to eq(true)
     end
 
     def stub_env(key, value)
@@ -48,11 +48,26 @@ RSpec.describe GDS::Metrics::Config do
       expect(subject.mmap_directory).to eq("/something")
     end
 
+    it "sets use_basic_auth as false if METRICS_BASIC_AUTH is false from env" do
+      stub_env("METRICS_BASIC_AUTH", "false")
+
+      subject.populate_from_env
+      expect(subject.use_basic_auth).to eq(false)
+    end
+
     it "enables auth if application id is present" do
       stub_env("VCAP_APPLICATION", { "application_id" => "something" }.to_json)
 
       subject.populate_from_env
-      expect(subject.auth_enabled?).to eq(true)
+      expect(subject.is_auth_enabled?).to eq(true)
+    end
+
+    it "disables auth if application id is present but METRICS_BASIC_AUTH is false" do
+      stub_env("VCAP_APPLICATION", { "application_id" => "something" }.to_json)
+      stub_env("METRICS_BASIC_AUTH", "false")
+
+      subject.populate_from_env
+      expect(subject.is_auth_enabled?).to eq(false)
     end
   end
 end
