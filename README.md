@@ -62,7 +62,7 @@ Because of the need to test the apps integration with rails there is a dummy Rai
 
 You can change the path for serving metrics (by default `/metrics`) by setting the `PROMETHEUS_METRICS_PATH` [environment variable][].
 
-If you are running `blue-green` deployments through a cf plugin like [autopilot][] it is advisable to disable the basic auth on the `\metrics` endpoint and use [IP whitelisting][] by setting the `METRICS_BASIC_AUTH` [environment variable][] to `false`. This will prevent gaps in metrics during deployment.
+If you are running `blue-green` deployments through a cf plugin like [autopilot][] you should disable the basic auth on the `\metrics` endpoint and use [IP whitelisting][] by setting the `METRICS_BASIC_AUTH` [environment variable][] to `false`. This will minimise gaps in metrics during deployment.
 
 ## How to setup extended metrics
 
