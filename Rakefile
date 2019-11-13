@@ -13,7 +13,7 @@ task :features do
 end
 
 task :lint do
-  system("govuk-lint-ruby")
+  system("rubocop")
 end
 
 task default: %i(clean units features lint)
