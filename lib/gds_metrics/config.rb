@@ -11,7 +11,7 @@ module GDS
       attr_accessor :use_basic_auth
 
       def self.instance
-        @singleton ||= Config.new
+        @instance ||= Config.new
       end
 
       def populate_from_env
