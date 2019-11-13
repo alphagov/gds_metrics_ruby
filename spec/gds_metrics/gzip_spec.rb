@@ -3,7 +3,7 @@ RSpec.describe GDS::Metrics::Gzip do
     attr_accessor :body
 
     def call(_)
-      [200, {}, ["body"]]
+      [200, {}, %w[body]]
     end
   end
 
