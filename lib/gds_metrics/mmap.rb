@@ -12,6 +12,7 @@ module GDS
 
           Dir.glob("#{directory}/*").each do |path|
             next unless database_file?(path)
+
             FileUtils.rm(path)
           end
         end
