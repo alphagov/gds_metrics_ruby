@@ -34,7 +34,7 @@ module GDS
       end
 
       def unauthorized
-        [401, { "Content-Type" => "text/plain" }, ["Unauthorized"]]
+        [401, { "Content-Type" => "text/plain" }, %w[Unauthorized]]
       end
     end
   end

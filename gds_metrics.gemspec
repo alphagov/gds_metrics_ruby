@@ -5,7 +5,7 @@ require "gds_metrics/version"
 Gem::Specification.new do |s|
   s.name        = "gds_metrics"
   s.version     = GDS::Metrics::VERSION
-  s.licenses    = ["MIT"]
+  s.licenses    = %w[MIT]
   s.summary     = "GDS Metrics"
   s.description = "Instrument your web app to export Prometheus metrics."
   s.author      = "Government Digital Service"
